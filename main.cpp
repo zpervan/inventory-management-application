@@ -1,11 +1,8 @@
-#include "GUI/src/mainwindow.h"
-
-#include <QApplication>
-
-int main(int argc, char *argv[])
+#include "Backend/DatabaseQuery/database_query.h"
+int main()
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-    return a.exec();
+    DatabaseQuery dbq;
+    dbq.Connect();
+
+    return 0;
 }

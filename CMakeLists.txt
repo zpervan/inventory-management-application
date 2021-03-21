@@ -1,37 +1,12 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.19)
+project(InventoryManagementApplication)
 
-project(InventoryManagementApplication LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(Backend)
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_PREFIX_PATH "C:\\Qt\\6.0.2\\mingw81_64\\lib\\cmake")
+add_executable(InventoryManagement main.cpp)
 
-find_package(QT NAMES Qt6 COMPONENTS Widgets LinguistTools REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets LinguistTools REQUIRED)
-
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTORCC ON)
-
-set(TS_FILES InventoryManagementApplication_hr_HR.ts)
-
-set(PROJECT_SOURCES
-        main.cpp
-        GUI/src/mainwindow.cpp
-        GUI/src/mainwindow.h
-        GUI/src/mainwindow.ui
-        ${TS_FILES}
-        )
-
-qt_add_executable(InventoryManagementApplication
-        ${PROJECT_SOURCES}
-        )
-
-qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
-
-target_link_libraries(InventoryManagementApplication PRIVATE
-        Qt${QT_VERSION_MAJOR}::Widgets
-        DatabaseQueryLib
+target_link_libraries(InventoryManagement
+        PRIVATE DatabaseQueryLib
         )
