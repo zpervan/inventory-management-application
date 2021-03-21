@@ -1,0 +1,6 @@
+# Settings files
+**/.clwb
+**/.idea
+
+# Build folders
+**/*build*/
