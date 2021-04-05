@@ -4,6 +4,8 @@ project(InventoryManagementApplication)
 set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(Backend)
+add_subdirectory(ThirdParty/DearImgui)
+add_subdirectory(ThirdParty/GoogleTest)
 
 add_executable(InventoryManagement main.cpp)
 

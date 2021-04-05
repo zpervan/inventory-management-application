@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.19)
 
 # Custom location of the PostgreSQL library
-set(PostgreSQL_DIR "${CMAKE_SOURCE_DIR}/Backend/ThirdParty/PostgreSQL13")
+set(PostgreSQL_DIR "${CMAKE_SOURCE_DIR}/ThirdParty/PostgreSQL13")
 set(PostgreSQL_ROOT "${PostgreSQL_DIR}")
 set(PostgreSQL_LIBRARY_DIR "${PostgreSQL_DIR}/lib")
 set(PostgreSQL_INCLUDE_DIRS "${PostgreSQL_DIR}/include")
