@@ -1,24 +1,27 @@
 #include "database_query.h"
 
-#include <iostream>
-
-#include <libpq-fe.h>
+#include <fmt/core.h>
 
 int DatabaseQuery::Connect()
 {
-    const char conninfo[] = "postgresql://postgres@localhost?port=5432&dbname=postgres&user=postgres&password=root";
+    database_connection_ = std::make_unique<PGconn*>(PQconnectdb(CreateConnectionLoginString().c_str()));
 
-    PGconn* conn = PQconnectdb(conninfo);
-
-    if (PQstatus(conn) != CONNECTION_OK)
+    if (PQstatus(*database_connection_) != ConnStatusType::CONNECTION_OK)
     {
-        std::cout << "Connection to database failed: " << PQerrorMessage(conn) << std::endl;
-        PQfinish(conn);
-        return 1;
+        fmt::print("Cannot connect to database. Error: {}", PQerrorMessage(*database_connection_));
+        PQfinish(*database_connection_);
+        return ConnStatusType::CONNECTION_BAD;
     }
     else
     {
-        std::cout << "Connection to database succeed." << std::endl;
-        return 0;
+        fmt::print("Connection to database established.");
+        return ConnStatusType::CONNECTION_OK;
     }
+}
+
+void DatabaseQuery::Fetch() {}
+
+std::string DatabaseQuery::CreateConnectionLoginString() const
+{
+    return fmt::format("{}{}&{}&{}&{}", url, port, dbname, user, password);
 }
