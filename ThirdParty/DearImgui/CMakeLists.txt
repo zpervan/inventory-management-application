@@ -12,6 +12,8 @@ set(HEADERS
         imstb_truetype.h
         imgui_impl_dx10.h
         imgui_impl_win32.h
+        implot.h
+        implot_internal.h
         )
 
 # Specify source files
@@ -23,7 +25,11 @@ set(SOURCES
         imgui_widgets.cpp
         imgui_impl_dx10.cpp
         imgui_impl_win32.cpp
-        imgui_exe.cpp)
+        imgui_exe.cpp
+        implot.cpp
+        implot_demo.cpp
+        implot_items.cpp
+        )
 
 # Create a library
 add_library(DearImGui STATIC ${HEADERS} ${SOURCES})
