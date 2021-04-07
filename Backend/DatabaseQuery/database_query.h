@@ -11,10 +11,12 @@ class DatabaseQuery
   public:
     /// @brief Establish a connection to the PostgreSQL database
     /// @TODO: Change signature to accept login data
-    int Connect();
+    void Connect();
 
     /// @brief Fetch all the content from the given table
-    void Fetch();
+    std::string Fetch();
+
+    ConnStatusType GetConnectionStatus() const;
 
   private:
     std::string CreateConnectionLoginString() const;
@@ -26,7 +28,7 @@ class DatabaseQuery
     const std::string user{"user=postgres"};
     const std::string password{"password=root"};
 
-    std::unique_ptr<PGconn*> database_connection_;
+    std::unique_ptr<PGconn*> database_connection_{nullptr};
 };
 
 #endif  // INVENTORYMANAGEMENTAPPLICATION_DATABASE_QUERY_H

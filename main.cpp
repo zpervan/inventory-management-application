@@ -4,6 +4,7 @@ int main()
     DatabaseQuery dbq;
 
     dbq.Connect();
+    dbq.Fetch();
 
     return 0;
 }
