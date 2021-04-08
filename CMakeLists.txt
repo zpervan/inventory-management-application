@@ -7,8 +7,8 @@ add_subdirectory(Backend)
 add_subdirectory(ThirdParty/DearImgui)
 add_subdirectory(ThirdParty/GoogleTest)
 
-add_executable(InventoryManagement main.cpp)
+add_executable(InventoryManagementExe main.cpp)
 
-target_link_libraries(InventoryManagement
+target_link_libraries(InventoryManagementExe
         PRIVATE DatabaseQueryLib
         )
