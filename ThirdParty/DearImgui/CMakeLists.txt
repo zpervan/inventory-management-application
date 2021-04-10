@@ -1,43 +1,33 @@
-project(DearImGui CXX)
+project(DearImGuiLib)
 
 message("-- Adding DearImgui")
 
-# Specify header files
-set(HEADERS
-        imconfig.h
-        imgui.h
-        imgui_internal.h
-        imstb_rectpack.h
-        imstb_textedit.h
-        imstb_truetype.h
-        imgui_impl_dx10.h
-        imgui_impl_win32.h
-        implot.h
-        implot_internal.h
-        )
-
 # Specify source files
-set(SOURCES
-        imgui.cpp
-        imgui_demo.cpp
-        imgui_draw.cpp
-        imgui_tables.cpp
-        imgui_widgets.cpp
-        imgui_impl_dx10.cpp
-        imgui_impl_win32.cpp
-        imgui_exe.cpp
-        implot.cpp
-        implot_demo.cpp
-        implot_items.cpp
+set(SOURCE
+        ${PROJECT_SOURCE_DIR}/imconfig.h
+        ${PROJECT_SOURCE_DIR}/imgui.h
+        ${PROJECT_SOURCE_DIR}/imgui_internal.h
+        ${PROJECT_SOURCE_DIR}/imstb_rectpack.h
+        ${PROJECT_SOURCE_DIR}/imstb_textedit.h
+        ${PROJECT_SOURCE_DIR}/imstb_truetype.h
+        ${PROJECT_SOURCE_DIR}/imgui_impl_dx10.h
+        ${PROJECT_SOURCE_DIR}/imgui_impl_win32.h
+        ${PROJECT_SOURCE_DIR}/implot.h
+        ${PROJECT_SOURCE_DIR}/implot_internal.h
+        ${PROJECT_SOURCE_DIR}/imgui.cpp
+        ${PROJECT_SOURCE_DIR}/imgui_demo.cpp
+        ${PROJECT_SOURCE_DIR}/imgui_draw.cpp
+        ${PROJECT_SOURCE_DIR}/imgui_tables.cpp
+        ${PROJECT_SOURCE_DIR}/imgui_widgets.cpp
+        ${PROJECT_SOURCE_DIR}/imgui_impl_dx10.cpp
+        ${PROJECT_SOURCE_DIR}/imgui_impl_win32.cpp
+        ${PROJECT_SOURCE_DIR}/imgui_exe.cpp
+        ${PROJECT_SOURCE_DIR}/implot.cpp
+        ${PROJECT_SOURCE_DIR}/implot_demo.cpp
+        ${PROJECT_SOURCE_DIR}/implot_items.cpp
         )
 
-# Create a library
-add_library(DearImGui STATIC ${HEADERS} ${SOURCES})
-
-# For testing purposes - run DearImgui with DX10 example
-add_executable(DearImguiExe imgui_exe.cpp)
-
-# Set the DirectX dependencies to run the example code
+# Set the dependencies fow Windows 10 DirectX dependencies
 set(WINDOWS_DEPENDENCIES
         imm32
         dwmapi
@@ -46,5 +36,6 @@ set(WINDOWS_DEPENDENCIES
         d3dcompiler
         )
 
-# Link the executable, DearImgui library and DirectX10 dependencies
-target_link_libraries(DearImguiExe DearImGui ${WINDOWS_DEPENDENCIES})
+add_library(${PROJECT_NAME} STATIC ${SOURCE})
+target_include_directories(${PROJECT_NAME} PRIVATE "${HEADERS}")
+target_link_libraries(${PROJECT_NAME} PRIVATE ${WINDOWS_DEPENDENCIES})

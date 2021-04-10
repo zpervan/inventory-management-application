@@ -1,0 +1,13 @@
+#ifndef INVENTORYMANAGEMENTAPPLICATION_GUI_GUI_RUNNER_H_
+#define INVENTORYMANAGEMENTAPPLICATION_GUI_GUI_RUNNER_H_
+
+class Runner
+{
+  public:
+    void Run();
+
+  private:
+    void Initialize();
+};
+
+#endif  // INVENTORYMANAGEMENTAPPLICATION_GUI_GUI_RUNNER_H_
