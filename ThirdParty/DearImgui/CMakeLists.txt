@@ -37,5 +37,4 @@ set(WINDOWS_DEPENDENCIES
         )
 
 add_library(${PROJECT_NAME} STATIC ${SOURCE})
-target_include_directories(${PROJECT_NAME} PRIVATE "${HEADERS}")
 target_link_libraries(${PROJECT_NAME} PRIVATE ${WINDOWS_DEPENDENCIES})

@@ -4,11 +4,15 @@ project(InventoryManagementApplication)
 set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(Backend)
-add_subdirectory(ThirdParty/DearImgui)
-add_subdirectory(ThirdParty/GoogleTest)
+add_subdirectory(GUI)
 
-add_executable(InventoryManagementExe main.cpp)
-
+# Main executable
+add_executable(InventoryManagementExe main.cpp GUI/gui_runner.cpp GUI/gui_runner.h)
 target_link_libraries(InventoryManagementExe
         PRIVATE DatabaseQueryLib
+        PRIVATE GUILib
         )
+
+# For testing purposes - run DearImgui with DX10 example
+add_executable(DearImguiExe ThirdParty/DearImgui/imgui_exe.cpp)
+target_link_libraries(DearImguiExe DearImGuiLib )
