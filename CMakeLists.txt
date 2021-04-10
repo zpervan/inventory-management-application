@@ -7,7 +7,7 @@ add_subdirectory(Backend)
 add_subdirectory(GUI)
 
 # Main executable
-add_executable(InventoryManagementExe main.cpp GUI/gui_runner.cpp GUI/gui_runner.h)
+add_executable(InventoryManagementExe main.cpp)
 target_link_libraries(InventoryManagementExe
         PRIVATE DatabaseQueryLib
         PRIVATE GUILib

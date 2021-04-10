@@ -3,8 +3,7 @@
 #include "Backend/DatabaseQuery/database_query.h"
 #include "GUI/gui_runner.h"
 
-int main()
-{
+int main() {
     DatabaseQuery dbq;
     dbq.Connect();
     dbq.Fetch();
