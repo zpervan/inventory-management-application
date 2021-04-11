@@ -9,10 +9,7 @@ public:
     void Run();
 
 private:
-    int Initialize();
-
     const std::string application_title{"Inventory Management Application DEMO"};
-    HWND window_{};
 };
 
 #endif  // INVENTORYMANAGEMENTAPPLICATION_GUI_GUI_RUNNER_H_
