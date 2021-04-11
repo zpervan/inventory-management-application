@@ -127,7 +127,7 @@ inline LRESULT WndProc(HWND h_wnd, UINT msg, WPARAM w_param, LPARAM l_param) {
         return 0;
       }
       break;
-    case WM_DESTROY:::PostQuitMessage(0);
+    case WM_DESTROY: ::PostQuitMessage(0);
       return 0;
   }
   return ::DefWindowProc(h_wnd, msg, w_param, l_param);

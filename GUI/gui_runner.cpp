@@ -4,6 +4,7 @@
 
 #include "directx_window.h"
 #include "imgui_content_window.h"
+#include "top_menu_bar.h"
 
 void Runner::Run() {
   CreateDirectXWindow(application_title);
@@ -11,31 +12,14 @@ void Runner::Run() {
 
   while (!done_) {
     CheckForEvents();
-
     if (done_) {
       break;
     }
-
     StartDearImguiFrame();
+    /** GUI Components START **/
+    menu_bar::Create();
 
-    {
-      static float f = 0.0f;
-      static int counter = 0;
-
-      ImGui::Begin("Hello, world!");
-
-      ImGui::Text("This is some useful text.");
-      ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
-      ImGui::ColorEdit3("clear color", (float *) &properties::clear_color);
-
-      if (ImGui::Button("Button")) {
-        counter++;
-      }
-      ImGui::SameLine();
-      ImGui::Text("counter = %d", counter);
-
-      ImGui::End();
-    }
+    /** GUI Components END **/
     Render();
   }
 
@@ -46,7 +30,11 @@ void Runner::InitializeImguiContext() {
   IMGUI_CHECKVERSION();
   ImGui::CreateContext();
   ImGuiIO &io = ImGui::GetIO();
-  (void) io;
+
+  /// @TODO: Adjust paths to be relative
+  io.Fonts->AddFontFromFileTTF(
+      "C:\\msys64\\home\\zperv\\Programming\\inventory-management-application\\ThirdParty\\DearImgui\\misc\\fonts\\Karla-Regular.ttf",
+      16.0f);
 
   // Setup Dear ImGui style
   ImGui::StyleColorsDark();

@@ -6,7 +6,10 @@ add_library(GUILib STATIC
         ${GUI_ROOT}/gui_runner.h
         ${GUI_ROOT}/gui_runner.cpp
         ${GUI_ROOT}/directx_window.h
-        ${GUI_ROOT}/imgui_content_window.h)
+        ${GUI_ROOT}/imgui_content_window.h
+        ${GUI_ROOT}/top_menu_bar.h
+#        ${GUI_ROOT}/main_menu_bar.h
+        )
 
 add_subdirectory(${CMAKE_SOURCE_DIR}/ThirdParty/DearImgui ${CMAKE_CURRENT_BINARY_DIR}/ThirdParty/DearImgui)
 
