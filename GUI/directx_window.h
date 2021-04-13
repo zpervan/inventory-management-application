@@ -7,6 +7,7 @@
 #include <d3d10.h>
 #include <tchar.h>
 #include <string>
+#include <winuser.h>
 
 namespace window {
 static HWND g_direct_x_window{};
@@ -27,6 +28,8 @@ void CleanupDeviceD3D();
 
 LRESULT WndProc(HWND h_wnd, UINT msg, WPARAM w_param, LPARAM l_param);
 
+std::pair<int, int> GetScreenResolution();
+
 // Forward declare message handler from imgui_impl_win32.cpp
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -36,9 +39,19 @@ inline void CreateDirectXWindow(const std::string &application_title) {
 
   ::RegisterClassEx(&window::g_wc);
 
-  window::g_direct_x_window = ::CreateWindow(window::g_wc.lpszClassName, _T(application_title.c_str()),
-                                             WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr,
-                                             window::g_wc.hInstance, nullptr);
+  const auto screen_resolution = GetScreenResolution();
+
+  window::g_direct_x_window = ::CreateWindow(window::g_wc.lpszClassName,
+                                             _T(application_title.c_str()),
+                                             WS_OVERLAPPEDWINDOW,
+                                             0,
+                                             0,
+                                             screen_resolution.first,
+                                             screen_resolution.second,
+                                             nullptr,
+                                             nullptr,
+                                             window::g_wc.hInstance,
+                                             nullptr);
 
   // Initialize Direct3D
   if (!CreateDeviceD3D()) {
@@ -131,6 +144,18 @@ inline LRESULT WndProc(HWND h_wnd, UINT msg, WPARAM w_param, LPARAM l_param) {
       return 0;
   }
   return ::DefWindowProc(h_wnd, msg, w_param, l_param);
+}
+
+std::pair<int, int> GetScreenResolution() {
+  RECT desktop;
+  // Get a handle to the desktop window
+  const HWND hDesktop = GetDesktopWindow();
+  // Get the size of screen to the variable desktop
+  GetWindowRect(hDesktop, &desktop);
+  // The top left corner will have coordinates (0,0)
+  // and the bottom right corner will have coordinates
+  // (horizontal, vertical)
+  return {desktop.right, desktop.bottom};
 }
 
 #endif //INVENTORYMANAGEMENTAPPLICATION_INITIALIZE_DIRECTX_WINDOW_H
