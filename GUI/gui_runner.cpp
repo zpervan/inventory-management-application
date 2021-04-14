@@ -3,8 +3,9 @@
 #include <d3d10.h>
 
 #include "directx_window.h"
-#include "imgui_content_window.h"
+#include "application_settings.h"
 #include "top_menu_bar.h"
+#include "main_menu_bar.h"
 
 void Runner::Run() {
   CreateDirectXWindow(application_title);
@@ -18,7 +19,7 @@ void Runner::Run() {
     StartDearImguiFrame();
     /** GUI Components START **/
     menu_bar::Create();
-
+    main_menu::Create();
     /** GUI Components END **/
     Render();
   }
@@ -33,7 +34,7 @@ void Runner::InitializeImguiContext() {
 
   /// @TODO: Adjust paths to be relative
   io.Fonts->AddFontFromFileTTF(
-      "C:\\msys64\\home\\zperv\\Programming\\inventory-management-application\\ThirdParty\\DearImgui\\misc\\fonts\\Karla-Regular.ttf",
+      R"(C:\msys64\home\zperv\Programming\inventory-management-application\ThirdParty\DearImgui\misc\fonts\Karla-Regular.ttf)",
       16.0f);
 
   // Setup Dear ImGui style
@@ -70,12 +71,13 @@ void Runner::Destroy() {
   ::DestroyWindow(window::g_direct_x_window);
   ::UnregisterClass(window::g_wc.lpszClassName, window::g_wc.hInstance);
 }
+
 void Runner::Render() {
   ImGui::Render();
-  const float clear_color_with_alpha[4] = {properties::clear_color.x * properties::clear_color.w,
-                                           properties::clear_color.y * properties::clear_color.w,
-                                           properties::clear_color.z * properties::clear_color.w,
-                                           properties::clear_color.w};
+  const float clear_color_with_alpha[4] = {properties::kGClearColor.x * properties::kGClearColor.w,
+                                           properties::kGClearColor.y * properties::kGClearColor.w,
+                                           properties::kGClearColor.z * properties::kGClearColor.w,
+                                           properties::kGClearColor.w};
   window::g_pd3d_device->OMSetRenderTargets(1, &window::g_main_render_target_view, nullptr);
   window::g_pd3d_device->ClearRenderTargetView(window::g_main_render_target_view, clear_color_with_alpha);
   ImGui_ImplDX10_RenderDrawData(ImGui::GetDrawData());

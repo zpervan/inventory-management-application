@@ -8,14 +8,7 @@
 #include <tchar.h>
 #include <string>
 #include <winuser.h>
-
-namespace window {
-static HWND g_direct_x_window{};
-static WNDCLASSEX g_wc{};
-static ID3D10Device *g_pd3d_device{nullptr};
-static IDXGISwapChain *g_p_swap_chain{nullptr};
-static ID3D10RenderTargetView *g_main_render_target_view{nullptr};
-}
+#include <iostream>
 
 // Forward declarations
 bool CreateDeviceD3D();
@@ -29,6 +22,15 @@ void CleanupDeviceD3D();
 LRESULT WndProc(HWND h_wnd, UINT msg, WPARAM w_param, LPARAM l_param);
 
 std::pair<int, int> GetScreenResolution();
+
+namespace window {
+static HWND g_direct_x_window{};
+static WNDCLASSEX g_wc{};
+static ID3D10Device *g_pd3d_device{nullptr};
+static IDXGISwapChain *g_p_swap_chain{nullptr};
+static ID3D10RenderTargetView *g_main_render_target_view{nullptr};
+static std::pair<int, int> g_window_size{GetScreenResolution()};
+}
 
 // Forward declare message handler from imgui_impl_win32.cpp
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
