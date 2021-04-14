@@ -10,7 +10,7 @@ set(SOURCE
         ${PROJECT_SOURCE_DIR}/imstb_rectpack.h
         ${PROJECT_SOURCE_DIR}/imstb_textedit.h
         ${PROJECT_SOURCE_DIR}/imstb_truetype.h
-        ${PROJECT_SOURCE_DIR}/imgui_impl_dx10.h
+        ${PROJECT_SOURCE_DIR}/imgui_impl_dx11.h
         ${PROJECT_SOURCE_DIR}/imgui_impl_win32.h
         ${PROJECT_SOURCE_DIR}/implot.h
         ${PROJECT_SOURCE_DIR}/implot_internal.h
@@ -19,7 +19,7 @@ set(SOURCE
         ${PROJECT_SOURCE_DIR}/imgui_draw.cpp
         ${PROJECT_SOURCE_DIR}/imgui_tables.cpp
         ${PROJECT_SOURCE_DIR}/imgui_widgets.cpp
-        ${PROJECT_SOURCE_DIR}/imgui_impl_dx10.cpp
+        ${PROJECT_SOURCE_DIR}/imgui_impl_dx11.cpp
         ${PROJECT_SOURCE_DIR}/imgui_impl_win32.cpp
         ${PROJECT_SOURCE_DIR}/imgui_exe.cpp
         ${PROJECT_SOURCE_DIR}/implot.cpp
@@ -31,8 +31,8 @@ set(SOURCE
 set(WINDOWS_DEPENDENCIES
         imm32
         dwmapi
-        d3d10
-        d3dx10
+        d3d11
+        d3dx11
         d3dcompiler
         )
 
