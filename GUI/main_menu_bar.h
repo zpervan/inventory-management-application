@@ -14,10 +14,24 @@ static int logo_width{0};
 static int logo_height{0};
 static ID3D11ShaderResourceView* logo_texture = nullptr;
 
+static int home_width{0};
+static int home_height{0};
+static ID3D11ShaderResourceView* home_texture = nullptr;
+
+static int database_width{0};
+static int database_height{0};
+static ID3D11ShaderResourceView* database_texture = nullptr;
+
+static int qr_width{0};
+static int qr_height{0};
+static ID3D11ShaderResourceView* qr_texture = nullptr;
+
 void Initialize() {
     /// @TODO: Adjust paths to be relative
-    bool ret = assets::LoadTextureFromFile( "C:/msys64/home/zperv/Programming/inventory-management-application/Assets/VVK_logo_novi.jpg", &logo_texture, &logo_width, &logo_height);
-    IM_ASSERT(ret);
+    IM_ASSERT(assets::LoadTextureFromFile( "C:/msys64/home/zperv/Programming/inventory-management-application/Assets/VVK_logo_novi.jpg", &logo_texture, &logo_width, &logo_height));
+    IM_ASSERT(assets::LoadTextureFromFile( "C:/msys64/home/zperv/Programming/inventory-management-application/Assets/home.png", &home_texture, &home_width, &home_height));
+    IM_ASSERT(assets::LoadTextureFromFile( "C:/msys64/home/zperv/Programming/inventory-management-application/Assets/browser.png", &database_texture, &database_width, &database_height));
+    IM_ASSERT(assets::LoadTextureFromFile( "C:/msys64/home/zperv/Programming/inventory-management-application/Assets/meetup.png", &qr_texture, &qr_width, &qr_height));
 }
 
 void Create()
@@ -26,6 +40,9 @@ void Create()
     ImGui::SetNextWindowPos(main_menu::kGPosition);
     ImGui::Begin("Main Menu", nullptr, properties::kGWindowFlags);
     ImGui::Image(static_cast<ImTextureID>(logo_texture), ImVec2(logo_width, logo_height));
+    ImGui::ImageButton(static_cast<ImTextureID>(home_texture), ImVec2(home_width, home_height));
+    ImGui::ImageButton(static_cast<ImTextureID>(database_texture), ImVec2(database_width, database_height));
+    ImGui::ImageButton(static_cast<ImTextureID>(qr_texture), ImVec2(qr_width, qr_height));
 
     ImGui::End();
 }
