@@ -14,6 +14,7 @@ set(SOURCE
         ${PROJECT_SOURCE_DIR}/imgui_impl_win32.h
         ${PROJECT_SOURCE_DIR}/implot.h
         ${PROJECT_SOURCE_DIR}/implot_internal.h
+        ${PROJECT_SOURCE_DIR}/stb_image.h
         ${PROJECT_SOURCE_DIR}/imgui.cpp
         ${PROJECT_SOURCE_DIR}/imgui_demo.cpp
         ${PROJECT_SOURCE_DIR}/imgui_draw.cpp
