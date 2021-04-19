@@ -9,6 +9,7 @@ add_library(GUILib STATIC
         ${GUI_ROOT}/application_settings.h
         ${GUI_ROOT}/top_menu_bar.h
         ${GUI_ROOT}/main_menu_bar.h
+        ${GUI_ROOT}/main_window.h
         ${GUI_ROOT}/utility.h
         )
 

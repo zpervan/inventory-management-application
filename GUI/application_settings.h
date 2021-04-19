@@ -5,14 +5,19 @@
 #include "directx_window.h"
 
 namespace properties {
-const ImVec4 kGClearColor {0.45f, 0.55f, 0.60f, 1.00f};
-const ImGuiWindowFlags kGWindowFlags {ImGuiWindowFlags_NoTitleBar + ImGuiWindowFlags_NoResize + ImGuiWindowFlags_NoCollapse + ImGuiWindowFlags_NoMove};
+const ImVec4 kGClearColor{0.45f, 0.55f, 0.60f, 1.00f};
+const ImGuiWindowFlags kGWindowFlags{ImGuiWindowFlags_NoTitleBar + ImGuiWindowFlags_NoResize + ImGuiWindowFlags_NoCollapse + ImGuiWindowFlags_NoMove};
 }
 
 namespace main_menu {
-const ImVec2 kGSize {static_cast<float>(GetScreenResolution().first) * 0.15f, static_cast<float>(GetScreenResolution().second)};
+const ImVec2 kGSize{static_cast<float>(GetScreenResolution().first) * 0.15f, static_cast<float>(GetScreenResolution().second)};
 /// @TODO: Make main menu position calculated dynamically (no hardcoded values)
 const ImVec2 kGPosition{0.0, 22}; // y = font size (16) + frame padding (6)
+}
+
+namespace main_window{
+const ImVec2 kGSize{static_cast<float>(GetScreenResolution().first) - main_menu::kGSize.x, static_cast<float>(GetScreenResolution().second)};
+const ImVec2 kGPosition{main_menu::kGSize.x, main_menu::kGPosition.y};
 }
 
 #endif //INVENTORYMANAGEMENTAPPLICATION_IMGUI_CONTENT_WINDOW_H

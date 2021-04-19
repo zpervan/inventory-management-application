@@ -5,6 +5,7 @@
 #include "application_settings.h"
 #include "directx_window.h"
 #include "main_menu_bar.h"
+#include "main_window.h"
 #include "top_menu_bar.h"
 
 void Runner::Run()
@@ -20,11 +21,15 @@ void Runner::Run()
         {
             break;
         }
+
         StartDearImguiFrame();
+
         /** GUI Components START **/
         menu_bar::Create();
         main_menu::Create();
+        main_window::Create();
         /** GUI Components END **/
+
         Render();
     }
 
