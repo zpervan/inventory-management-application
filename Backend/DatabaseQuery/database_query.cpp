@@ -1,15 +1,16 @@
 #include "database_query.h"
 
-#include <fmt/core.h>
+#include <fmt/format.h>
 
+/// @TODO: Add error handling for failed database connection
 void DatabaseQuery::Connect()
 {
-    database_connection_ = std::make_unique<PGconn*>(PQconnectdb(CreateConnectionLoginString().c_str()));
+    database_connection_ = PQconnectdb(CreateConnectionLoginString().c_str());
 
-    if (PQstatus(*database_connection_) != ConnStatusType::CONNECTION_OK)
+    if (PQstatus(database_connection_) != ConnStatusType::CONNECTION_OK)
     {
-        fmt::print("Cannot connect to database. Error: {}", PQerrorMessage(*database_connection_));
-        PQfinish(*database_connection_);
+        fmt::print("Cannot connect to database. Error: {}", PQerrorMessage(database_connection_));
+        PQfinish(database_connection_);
     }
     else
     {
@@ -17,34 +18,70 @@ void DatabaseQuery::Connect()
     }
 }
 
-std::string DatabaseQuery::Fetch()
+DatabaseResponse DatabaseQuery::FetchFromDatabase(const std::string& name)
 {
-    std::unique_ptr<PGresult*> result = std::make_unique<PGresult*>(PQexec(*database_connection_, "SELECT * FROM pc"));
-    fmt::print("\nPQntuples: {}", PQntuples(*result));
-    fmt::print("\nPQnfields: {}", PQnfields(*result));
+    query_result_ = PQexec(database_connection_, fmt::format("SELECT * FROM {}", name).c_str());
+    column_count_ = PQnfields(query_result_);
+    row_count_ = PQntuples(query_result_);
 
-    for (std::size_t i = 0; i < PQnfields(*result); i++)
+    return {FetchDatabaseHeader(), FetchDatabaseValues()};
+}
+
+void DatabaseQuery::PrintQueryResult()
+{
+    for (const auto& column_name : FetchDatabaseHeader())
     {
-        fmt::print("\nPQfnames: {}", PQfname(*result, i));
+        fmt::print("\nPQfnames: {}", column_name);
     }
 
-    for (int i = 0; i < PQntuples(*result); i++)
+    for (const auto& value_pair : FetchDatabaseValues())
     {
         fmt::print("\n");
-        for (int j = 0; j < PQnfields(*result); j++)
+        for (const auto& value : value_pair.second)
         {
-            fmt::print(" {} ", PQgetvalue(*result, i, j));
+            fmt::print(" {} ", value);
         }
     }
-    return {};
 }
 
 ConnStatusType DatabaseQuery::GetConnectionStatus() const
 {
-    return PQstatus(*database_connection_);
+    return PQstatus(database_connection_);
 }
 
 std::string DatabaseQuery::CreateConnectionLoginString() const
 {
     return fmt::format("{}{}&{}&{}&{}", url, port, dbname, user, password);
+}
+
+DatabaseHeader DatabaseQuery::FetchDatabaseHeader()
+{
+    DatabaseHeader column_names{};
+    column_names.reserve(column_count_);
+
+    for (int i = 0; i < column_count_; i++)
+    {
+        column_names.emplace_back(PQfname(query_result_, i));
+    }
+
+    return column_names;
+}
+
+DatabaseValues DatabaseQuery::FetchDatabaseValues()
+{
+    DatabaseValues database_values{};
+
+    for (int i = 0; i < row_count_; i++)
+    {
+        std::vector<std::string> values{};
+        values.reserve(column_count_);
+
+        for (int j = 1; j < column_count_; j++)
+        {
+            values.emplace_back(PQgetvalue(query_result_, i, j));
+        }
+        database_values[i] = values;
+    }
+
+    return database_values;
 }
