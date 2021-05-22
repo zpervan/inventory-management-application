@@ -21,6 +21,12 @@ void DatabaseQuery::Connect()
 DatabaseResponse DatabaseQuery::FetchFromDatabase(const std::string& name)
 {
     query_result_ = PQexec(database_connection_, fmt::format("SELECT * FROM {}", name).c_str());
+    if (query_result_ == nullptr)
+    {
+        fmt::print("No results...");
+        throw;
+    }
+
     column_count_ = PQnfields(query_result_);
     row_count_ = PQntuples(query_result_);
 
@@ -34,10 +40,10 @@ void DatabaseQuery::PrintQueryResult()
         fmt::print("\nPQfnames: {}", column_name);
     }
 
-    for (const auto& value_pair : FetchDatabaseValues())
+    for (const auto& values : FetchDatabaseValues())
     {
         fmt::print("\n");
-        for (const auto& value : value_pair.second)
+        for (const auto& value : values)
         {
             fmt::print(" {} ", value);
         }
@@ -70,17 +76,18 @@ DatabaseHeader DatabaseQuery::FetchDatabaseHeader()
 DatabaseValues DatabaseQuery::FetchDatabaseValues()
 {
     DatabaseValues database_values{};
+    database_values.reserve(row_count_);
 
     for (int i = 0; i < row_count_; i++)
     {
         std::vector<std::string> values{};
         values.reserve(column_count_);
 
-        for (int j = 1; j < column_count_; j++)
+        for (int j = 0; j < column_count_; j++)
         {
             values.emplace_back(PQgetvalue(query_result_, i, j));
         }
-        database_values[i] = values;
+        database_values.emplace_back(values);
     }
 
     return database_values;

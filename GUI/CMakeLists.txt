@@ -14,5 +14,9 @@ add_library(GUILib STATIC
         )
 
 add_subdirectory(${CMAKE_SOURCE_DIR}/ThirdParty/DearImgui ${CMAKE_CURRENT_BINARY_DIR}/ThirdParty/DearImgui)
+add_subdirectory(${CMAKE_SOURCE_DIR}/Backend/DatabaseQuery ${CMAKE_CURRENT_BINARY_DIR}/Backend/DatabaseQuery)
 
-target_link_libraries(GUILib PUBLIC DearImGuiLib)
+target_link_libraries(GUILib
+        PUBLIC DearImGuiLib
+        PUBLIC DatabaseQueryLib
+        )

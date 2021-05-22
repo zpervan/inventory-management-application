@@ -13,6 +13,7 @@ void Runner::Run()
     CreateDirectXWindow(application_title);
     InitializeImguiContext();
     main_menu::Initialize();
+    main_window::Initialize();
 
     while (!done_)
     {

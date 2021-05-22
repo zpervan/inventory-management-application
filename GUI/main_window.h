@@ -1,6 +1,7 @@
 #ifndef INVENTORYMANAGEMENTAPPLICATION_GUI_MAIN_WINDOW_H_
 #define INVENTORYMANAGEMENTAPPLICATION_GUI_MAIN_WINDOW_H_
 
+#include "../Backend/DatabaseQuery/database_query.h"
 #include "application_settings.h"
 #include "utility.h"
 
@@ -14,10 +15,22 @@ static ImGuiTableFlags flags = ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg;
 static int add_width{0};
 static int add_height{0};
 static ID3D11ShaderResourceView* add_texture = nullptr;
+inline static DatabaseQuery db;
+inline static DatabaseResponse database_response{};
+
+void Initialize()
+{
+    db.Connect();
+    database_response = db.FetchFromDatabase("pc");
+}
 
 void Create()
 {
-    assets::LoadTextureFromFile("C:\\msys64\\home\\zperv\\Programming\\inventory-management-application\\Assets\\plus.png", &add_texture, &add_width, &add_height);
+    assets::LoadTextureFromFile(
+        "C:\\msys64\\home\\zperv\\Programming\\inventory-management-application\\Assets\\plus.png",
+        &add_texture,
+        &add_width,
+        &add_height);
     ImGui::SetNextWindowSize(main_window::kGSize);
     ImGui::SetNextWindowPos(main_window::kGPosition);
     ImGui::Begin("Main Window", nullptr, properties::kGWindowFlags);
@@ -25,15 +38,21 @@ void Create()
     ImGui::SameLine();
     ImGui::ImageButton(static_cast<ImTextureID>(add_texture), ImVec2(add_width, add_height));
 
-    if (ImGui::BeginTable("table1", 3, flags))
+    if (ImGui::BeginTable("database_table", database_response.database_header.size(), flags))
     {
-        for (int row = 0; row < 5; row++)
+        for (const auto& column_name : database_response.database_header)
+        {
+            ImGui::TableSetupColumn(column_name.data());
+        }
+        ImGui::TableHeadersRow();
+
+        for (const auto& values : database_response.database_values)
         {
             ImGui::TableNextRow();
-            for (int column = 0; column < 3; column++)
+            for (int column = 0; column < values.size(); column++)
             {
                 ImGui::TableSetColumnIndex(column);
-                ImGui::Text("Hello %d,%d", column, row);
+                ImGui::Text("%s", values.at(column).c_str());
             }
         }
         ImGui::EndTable();

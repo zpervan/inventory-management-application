@@ -9,7 +9,7 @@
 #include <libpq-fe.h>
 
 using DatabaseHeader = std::vector<std::string_view>;
-using DatabaseValues = std::map<std::size_t, std::vector<std::string>>;
+using DatabaseValues = std::vector<std::vector<std::string>>;
 
 struct DatabaseResponse
 {

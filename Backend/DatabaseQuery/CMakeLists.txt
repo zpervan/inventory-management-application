@@ -24,8 +24,8 @@ link_directories(${PostgreSQL_LIBRARY_DIRS})
 message("-- Adding DatabaseQueryLib")
 
 add_library(DatabaseQueryLib STATIC
-        ${PROJECT_SOURCE_DIR}/DatabaseQuery/database_query.h
-        ${PROJECT_SOURCE_DIR}/DatabaseQuery/database_query.cpp
+        ${PROJECT_SOURCE_DIR}/Backend/DatabaseQuery/database_query.h
+        ${PROJECT_SOURCE_DIR}/Backend/DatabaseQuery/database_query.cpp
         )
 
 target_link_libraries(DatabaseQueryLib

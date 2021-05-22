@@ -3,11 +3,8 @@
 #include "Backend/DatabaseQuery/database_query.h"
 #include "GUI/gui_runner.h"
 
-int main() {
-    DatabaseQuery dbq;
-    dbq.Connect();
-    dbq.Fetch();
-
+int main()
+{
     std::unique_ptr<Runner> runner{new Runner};
     runner->Run();
 
