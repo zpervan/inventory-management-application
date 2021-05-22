@@ -1532,7 +1532,7 @@ bool BeginPlot(const char* title, const char* x_label, const char* y1_label, con
     const bool show_x_label = x_label && !ImHasFlag(plot.XAxis.Flags, ImPlotAxisFlags_NoLabel);
 
     const float pad_top = title_size.x > 0.0f ? txt_height + gp.Style.LabelPadding.y : 0;
-    const float pad_bot = (plot.XAxis.IsLabeled() ? txt_height + gp.Style.LabelPadding.y + (plot.XAxis.IsTime() ? txt_height + gp.Style.LabelPadding.y : 0) : 0)
+    const float pad_bot = (plot.XAxis.IsLabeled() ? ImMax(txt_height, gp.XTicks.MaxHeight) + gp.Style.LabelPadding.y + (plot.XAxis.IsTime() ? txt_height + gp.Style.LabelPadding.y : 0) : 0)
                         + (show_x_label ? txt_height + gp.Style.LabelPadding.y : 0);
 
     const float plot_height = plot.CanvasRect.GetHeight() - pad_top - pad_bot;
@@ -3404,7 +3404,7 @@ ImU32  SampleColormapU32(float t, ImPlotColormap cmap) {
     ImPlotContext& gp = *GImPlot;
     cmap = cmap == IMPLOT_AUTO ? gp.Style.Colormap : cmap;
     IM_ASSERT_USER_ERROR(cmap >= 0 && cmap < gp.ColormapData.Count, "Invalid colormap index!");
-    return gp.ColormapData.LerpTable(gp.Style.Colormap,t);
+    return gp.ColormapData.LerpTable(cmap, t);
 }
 
 ImVec4 SampleColormap(float t, ImPlotColormap cmap) {
