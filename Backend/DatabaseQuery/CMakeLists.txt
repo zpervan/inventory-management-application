@@ -13,7 +13,6 @@ set(PostgreSQL_INCLUDE_DIRS "${PostgreSQL_DIR}/include")
 set(PostgreSQL_LIBRARIES "${PostgreSQL_DIR}/lib/libpq.lib")
 
 include_directories(${PostgreSQL_INCLUDE_DIRS})
-link_directories(${PostgreSQL_LIBRARY_DIRS})
 
 # Print the PostgreSQL locations
 #message("-- PostgreSQL_ROOT: ${PostgreSQL_ROOT}")
@@ -24,12 +23,15 @@ link_directories(${PostgreSQL_LIBRARY_DIRS})
 message("-- Adding DatabaseQueryLib")
 
 add_library(DatabaseQueryLib STATIC
-        ${PROJECT_SOURCE_DIR}/Backend/DatabaseQuery/database_query.h
-        ${PROJECT_SOURCE_DIR}/Backend/DatabaseQuery/database_query.cpp
+        ${CMAKE_SOURCE_DIR}/Backend/DatabaseQuery/database_query.h
+        ${CMAKE_SOURCE_DIR}/Backend/DatabaseQuery/database_query.cpp
         )
 
 target_link_libraries(DatabaseQueryLib
-        PRIVATE ${PostgreSQL_LIBRARIES}
-        PRIVATE fmt
+        PRIVATE
+            ${PostgreSQL_LIBRARIES}
+            fmt
         )
+
+install(TARGETS DatabaseQueryLib)
 

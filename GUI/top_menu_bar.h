@@ -1,7 +1,7 @@
 #ifndef INVENTORYMANAGEMENTAPPLICATION_GUI_TOP_MENU_BAR_H_
 #define INVENTORYMANAGEMENTAPPLICATION_GUI_TOP_MENU_BAR_H_
 
-#include "../ThirdParty/DearImgui/imgui.h"
+#include "../ThirdParty/Imgui/imgui.h"
 
 namespace menu_bar {
 

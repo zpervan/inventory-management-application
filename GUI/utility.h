@@ -1,17 +1,17 @@
 #ifndef INVENTORYMANAGEMENTAPPLICATION_GUI_UTILITY_H_
 #define INVENTORYMANAGEMENTAPPLICATION_GUI_UTILITY_H_
 
-#include <d3d11.h>
+#include "application_settings.h"
 
-#include "directx_window.h"
+#include <d3d11.h>
+#include <utility>
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "../ThirdParty/DearImgui/stb_image.h"
+#include "../ThirdParty/Imgui/stb_image.h"
 
 namespace assets
 {
-
-static bool LoadTextureFromFile(const char* filename, ID3D11ShaderResourceView** out_srv, int* out_width, int* out_height)
+bool LoadTextureFromFile(const char* filename, ID3D11ShaderResourceView** out_srv, int* out_width, int* out_height)
 {
     // Load from disk into a raw RGBA buffer
     int image_width = 0;

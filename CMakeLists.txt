@@ -1,16 +1,29 @@
-cmake_minimum_required(VERSION 3.19)
-project(InventoryManagementApplication)
+cmake_minimum_required(VERSION 3.20)
+project(InventoryManagement)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/bin")
+
+message("-- Code generator: ${CMAKE_GENERATOR}")
 
 add_subdirectory(GUI)
 
-# Main executable
-add_executable(InventoryManagementExe main.cpp)
-target_link_libraries(InventoryManagementExe
-        PRIVATE GUILib
-        )
+# Inventory management main executable
+add_executable(${PROJECT_NAME} main.cpp)
+target_link_libraries(${PROJECT_NAME} GUILib)
 
-# For testing purposes - run DearImgui with DX10 example
-add_executable(DearImguiExe ThirdParty/DearImgui/imgui_exe.cpp)
-target_link_libraries(DearImguiExe DearImGuiLib )
+add_executable(ImguiDx11 ${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty/Imgui/imgui_win32_dx11_example.cpp)
+target_link_libraries(ImguiDx11 ImguiLib)
+
+install(TARGETS ${PROJECT_NAME})
+
+file(GLOB_RECURSE LIBS "*.dll" "*.lib")
+
+# TODO: Filter out unnecessary libraries
+foreach(LIB ${LIBS})
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND}
+            -E copy ${LIB} ${CMAKE_CURRENT_BINARY_DIR}
+            COMMENT "Copying ${LIB} library to '${CMAKE_CURRENT_BINARY_DIR}'")
+endforeach()
+

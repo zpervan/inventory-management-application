@@ -1,12 +1,9 @@
-#include <memory>
+#include "GUI/runner.h"
 
-#include "Backend/DatabaseQuery/database_query.h"
-#include "GUI/gui_runner.h"
-
-int main()
+int main(int, char**)
 {
-    std::unique_ptr<Runner> runner{new Runner};
-    runner->Run();
+    Runner runner;
+    runner.run();
 
     return 0;
 }

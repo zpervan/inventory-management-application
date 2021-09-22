@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include <libpq-fe.h>
+#include "../../ThirdParty/PostgreSQL13/include/libpq-fe.h"
 
 using DatabaseHeader = std::vector<std::string_view>;
 using DatabaseValues = std::vector<std::vector<std::string>>;
@@ -43,7 +43,7 @@ class DatabaseQuery
     const std::string port{"port=5432"};
     const std::string dbname{"dbname=postgres"};
     const std::string user{"user=postgres"};
-    const std::string password{"password=root"};
+    const std::string password{"password=user"};
     int column_count_{0};
     int row_count_{0};
 

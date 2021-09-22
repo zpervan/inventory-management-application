@@ -9,7 +9,7 @@ void DatabaseQuery::Connect()
 
     if (PQstatus(database_connection_) != ConnStatusType::CONNECTION_OK)
     {
-        fmt::print("Cannot connect to database. Error: {}", PQerrorMessage(database_connection_));
+        fmt::print("Cannot connect to database. Message: {}", PQerrorMessage(database_connection_));
         PQfinish(database_connection_);
     }
     else

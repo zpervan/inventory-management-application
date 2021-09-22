@@ -28,10 +28,10 @@ static ID3D11ShaderResourceView* qr_texture = nullptr;
 
 void Initialize() {
     /// @TODO: Adjust paths to be relative
-    IM_ASSERT(assets::LoadTextureFromFile( "C:/msys64/home/zperv/Programming/inventory-management-application/Assets/VVK_logo_novi.jpg", &logo_texture, &logo_width, &logo_height));
-    IM_ASSERT(assets::LoadTextureFromFile( "C:/msys64/home/zperv/Programming/inventory-management-application/Assets/home.png", &home_texture, &home_width, &home_height));
-    IM_ASSERT(assets::LoadTextureFromFile( "C:/msys64/home/zperv/Programming/inventory-management-application/Assets/browser.png", &database_texture, &database_width, &database_height));
-    IM_ASSERT(assets::LoadTextureFromFile( "C:/msys64/home/zperv/Programming/inventory-management-application/Assets/meetup.png", &qr_texture, &qr_width, &qr_height));
+    IM_ASSERT(assets::LoadTextureFromFile( "C:/Users/Zvonimir/CLionProjects/InventoryManagement/Assets/VVK_logo_novi.jpg", &logo_texture, &logo_width, &logo_height));
+    IM_ASSERT(assets::LoadTextureFromFile( "C:/Users/Zvonimir/CLionProjects/InventoryManagement/Assets/home.png", &home_texture, &home_width, &home_height));
+    IM_ASSERT(assets::LoadTextureFromFile( "C:/Users/Zvonimir/CLionProjects/InventoryManagement/Assets/browser.png", &database_texture, &database_width, &database_height));
+    IM_ASSERT(assets::LoadTextureFromFile( "C:/Users/Zvonimir/CLionProjects/InventoryManagement/Assets/meetup.png", &qr_texture, &qr_width, &qr_height));
 }
 
 void Create()

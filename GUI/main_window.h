@@ -27,7 +27,7 @@ void Initialize()
 void Create()
 {
     assets::LoadTextureFromFile(
-        "C:\\msys64\\home\\zperv\\Programming\\inventory-management-application\\Assets\\plus.png",
+        "C:\\Users\\Zvonimir\\CLionProjects\\InventoryManagement\\Assets\\plus.png",
         &add_texture,
         &add_width,
         &add_height);
@@ -38,25 +38,26 @@ void Create()
     ImGui::SameLine();
     ImGui::ImageButton(static_cast<ImTextureID>(add_texture), ImVec2(add_width, add_height));
 
-    if (ImGui::BeginTable("database_table", database_response.database_header.size(), flags))
-    {
-        for (const auto& column_name : database_response.database_header)
-        {
-            ImGui::TableSetupColumn(column_name.data());
-        }
-        ImGui::TableHeadersRow();
-
-        for (const auto& values : database_response.database_values)
-        {
-            ImGui::TableNextRow();
-            for (int column = 0; column < values.size(); column++)
-            {
-                ImGui::TableSetColumnIndex(column);
-                ImGui::Text("%s", values.at(column).c_str());
-            }
-        }
-        ImGui::EndTable();
-    }
+/// @TODO: Adjust database
+//    if (ImGui::BeginTable("database_table", database_response.database_header.size(), flags))
+//    {
+//        for (const auto& column_name : database_response.database_header)
+//        {
+//            ImGui::TableSetupColumn(column_name.data());
+//        }
+//        ImGui::TableHeadersRow();
+//
+//        for (const auto& values : database_response.database_values)
+//        {
+//            ImGui::TableNextRow();
+//            for (int column = 0; column < values.size(); column++)
+//            {
+//                ImGui::TableSetColumnIndex(column);
+//                ImGui::Text("%s", values.at(column).c_str());
+//            }
+//        }
+//        ImGui::EndTable();
+//    }
     ImGui::End();
 }
 }  // namespace main_window
