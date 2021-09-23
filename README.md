@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/yki8pm2yptqevekc?svg=true)](https://ci.appveyor.com/project/zpervan/inventory-management-application)
+
 # Inventory Management Application #
 
 A Windows based C++ application for inventory management and monitoring.

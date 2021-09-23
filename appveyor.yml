@@ -1,0 +1,45 @@
+image: Visual Studio 2019
+
+init:
+  - date /T & time /T
+  - cmake --version
+
+branches:
+  only:
+    - master
+
+clone_depth: 5
+
+version: '{build}'
+
+platform:
+  - x64
+
+configuration:
+  - Release
+  - Debug
+
+#environment:
+#  matrix:
+#    #- generator: "Visual Studio 16"
+#    #- generator: "MinGW Makefiles"
+#    #- generator: "NMake Makefiles"
+
+build_script:
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - dir
+  - cd..
+  - mkdir build
+  - cd build
+  - call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"
+  # generate build script
+  - >
+    cmake %APPVEYOR_BUILD_FOLDER%
+    -G "CodeBlocks - NMake Makefiles"
+    -DCMAKE_INSTALL_PREFIX=./bin
+  # build
+  - cmake --build . --target InventoryManagement --config %configuration%
+  # install
+  #- cmake --build . --target INSTALL --config %configuration%
+  # package (with cpack)
+  #- cmake --build ./build --target PACKAGE --config %configuration% -- /nologo
