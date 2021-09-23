@@ -1,0 +1,1 @@
+This libraries are missing in the MSVC19 SDK and are needed to run the application properly.
