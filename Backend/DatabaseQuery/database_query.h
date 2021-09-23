@@ -41,7 +41,7 @@ class DatabaseQuery
     /// @TODO: The database information should be removed once a login and connection form is established
     const std::string url{"postgresql://postgres@localhost?"};
     const std::string port{"port=5432"};
-    const std::string dbname{"dbname=postgres"};
+    const std::string dbname{"dbname=inventory"};
     const std::string user{"user=postgres"};
     const std::string password{"password=user"};
     int column_count_{0};

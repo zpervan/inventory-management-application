@@ -23,7 +23,6 @@ file(GLOB_RECURSE LIBS "*.dll" "*.lib")
 foreach(LIB ${LIBS})
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
             COMMAND ${CMAKE_COMMAND}
-            -E copy ${LIB} ${CMAKE_CURRENT_BINARY_DIR}
-            COMMENT "Copying ${LIB} library to '${CMAKE_CURRENT_BINARY_DIR}'")
+            -E copy ${LIB} ${CMAKE_CURRENT_BINARY_DIR})
 endforeach()
 

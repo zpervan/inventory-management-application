@@ -21,7 +21,7 @@ inline static DatabaseResponse database_response{};
 void Initialize()
 {
     db.Connect();
-    database_response = db.FetchFromDatabase("pc");
+    database_response = db.FetchFromDatabase("inventory.pc.borrowed");
 }
 
 void Create()
@@ -38,26 +38,25 @@ void Create()
     ImGui::SameLine();
     ImGui::ImageButton(static_cast<ImTextureID>(add_texture), ImVec2(add_width, add_height));
 
-/// @TODO: Adjust database
-//    if (ImGui::BeginTable("database_table", database_response.database_header.size(), flags))
-//    {
-//        for (const auto& column_name : database_response.database_header)
-//        {
-//            ImGui::TableSetupColumn(column_name.data());
-//        }
-//        ImGui::TableHeadersRow();
-//
-//        for (const auto& values : database_response.database_values)
-//        {
-//            ImGui::TableNextRow();
-//            for (int column = 0; column < values.size(); column++)
-//            {
-//                ImGui::TableSetColumnIndex(column);
-//                ImGui::Text("%s", values.at(column).c_str());
-//            }
-//        }
-//        ImGui::EndTable();
-//    }
+    if (ImGui::BeginTable("database_table", database_response.database_header.size(), flags))
+    {
+        for (const auto& column_name : database_response.database_header)
+        {
+            ImGui::TableSetupColumn(column_name.data());
+        }
+        ImGui::TableHeadersRow();
+
+        for (const auto& values : database_response.database_values)
+        {
+            ImGui::TableNextRow();
+            for (int column = 0; column < values.size(); column++)
+            {
+                ImGui::TableSetColumnIndex(column);
+                ImGui::Text("%s", values.at(column).c_str());
+            }
+        }
+        ImGui::EndTable();
+    }
     ImGui::End();
 }
 }  // namespace main_window
